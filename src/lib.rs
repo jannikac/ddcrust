@@ -1,4 +1,4 @@
-use anyhow::{Ok, Result};
+use anyhow::{Context, Result};
 use async_trait::async_trait;
 use log::{debug, info};
 use serde::{Deserialize, Serialize};
@@ -16,14 +16,23 @@ pub struct Config {
 
 impl Config {
     pub fn from(config_path: PathBuf) -> Result<Config> {
-        debug!(
-            "Reading config from {}",
-            config_path.canonicalize()?.to_string_lossy()
-        );
-        let file = fs::read_to_string(config_path)?;
-        let config = toml::from_str::<Config>(&file)?;
+        let abs_path = match config_path.is_relative() {
+            true => {
+                let current_dir = env::current_dir().unwrap(); //this should never error
+                PathBuf::from_iter([current_dir, config_path])
+            }
+            false => config_path,
+        };
+
+        let canonical_path = abs_path
+            .canonicalize()
+            .with_context(|| format!("Could not read path {}", abs_path.to_string_lossy()))?;
+
+        debug!("Reading config from {}", canonical_path.to_string_lossy());
+        let file = fs::read_to_string(canonical_path).context("Could not read config file")?;
+        let config = toml::from_str::<Config>(&file).context("Could not parse config file")?;
         debug!("Successfully read config");
-        return Ok(config);
+        Ok(config)
     }
 }
 
