@@ -19,6 +19,8 @@ jobs:
         run: cargo build --target x86_64-unknown-linux-gnu --release
       - name: Run tests
         run: cargo test
+      - name: Setup tmate session
+        uses: mxschmitt/action-tmate@v3
       - name: Release
         uses: softprops/action-gh-release@v1
         with:

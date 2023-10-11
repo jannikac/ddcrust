@@ -22,6 +22,20 @@ Implement CLI, Docker container, Systemd timer
 
 You can clone this repository and run the program with cargo run or build it with cargo build.
 
+### Build from source
+
+#### Build for your current platform
+
+`cargo build`
+
+#### Build for linux x86_64
+
+`cargo build --target x86_64-unknown-linux-gnu`
+
+#### Build for windows x86_64
+
+`cargo build --target x86_64-pc-windows-gnu`
+
 ## Contributing
 
 DDCrust is an open-source project. You are welcome to implement more protocols or contribute any code that improves this project in; just open a PR!
