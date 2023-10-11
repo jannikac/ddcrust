@@ -23,7 +23,7 @@ fn main() -> Result<()> {
     Ok(())
 }
 
-#[tokio::main]
+#[tokio::main(flavor = "current_thread")]
 async fn run(args: Args) -> Result<()> {
     let config = Config::from(args.config)?;
     let mut cache = Cache::new()?;
