@@ -1,6 +1,6 @@
 use anyhow::{Ok, Result};
 use async_trait::async_trait;
-use log::debug;
+use log::{debug, info};
 use serde::{Deserialize, Serialize};
 use services::dyndns2::Dyndns2;
 use std::{collections::HashMap, env, fs, net::IpAddr, path::PathBuf, str::FromStr};
@@ -53,8 +53,8 @@ pub trait ServiceTrait {
             Some(cache_ip) => {
                 // cache key found. if cache_ip is same as wan_ip dont do anythink
                 if cache_ip == &wan_ip {
-                    debug!(
-                        "Cache IP ({}) and WAN IP ({}) are the same, not updating remote ip",
+                    info!(
+                        "Cache IP ({}) and WAN IP ({}) are identical, not updating remote ip",
                         cache_ip, wan_ip
                     )
                 } else {
