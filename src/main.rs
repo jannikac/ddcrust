@@ -1,11 +1,9 @@
 use anyhow::Result;
-use ddcrust::{get_wan_ip, handle_service, read_config, Cache};
+use ddcrust::{get_wan_ip, handle_service, Cache, Config};
 use tokio::time::{sleep, Duration};
 
 #[tokio::main]
-async fn main() -> Result<()> {
-    env_logger::init();
-    let config = read_config()?;
+    let config = Config::from(args.config)?;
     let mut cache = Cache::new()?;
     loop {
         let ip = get_wan_ip(config.ip_webservice.clone()).await?;

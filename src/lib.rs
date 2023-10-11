@@ -14,6 +14,19 @@ pub struct Config {
     pub services: Vec<ServiceTypes>,
 }
 
+impl Config {
+    pub fn from(config_path: PathBuf) -> Result<Config> {
+        debug!(
+            "Reading config from {}",
+            config_path.canonicalize()?.to_string_lossy()
+        );
+        let file = fs::read_to_string(config_path)?;
+        let config = toml::from_str::<Config>(&file)?;
+        debug!("Successfully read config");
+        return Ok(config);
+    }
+}
+
 #[derive(Serialize, Deserialize, Debug)]
 pub enum ServiceTypes {
     #[serde(rename = "dyndns2")]
@@ -97,18 +110,6 @@ impl Cache {
             });
         }
     }
-}
-
-pub fn read_config() -> Result<Config> {
-    let conf_path = PathBuf::from("config.toml");
-    debug!(
-        "Reading config from {}",
-        conf_path.canonicalize()?.to_string_lossy()
-    );
-    let file = fs::read_to_string("config.toml")?;
-    let config = toml::from_str::<Config>(&file)?;
-    debug!("Successfully read config");
-    return Ok(config);
 }
 
 pub async fn get_wan_ip(ip_webservice_url: Url) -> Result<IpAddr> {
