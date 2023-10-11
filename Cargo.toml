@@ -17,3 +17,6 @@ serde = { version = "1.0.188", features = ["derive"] }
 tokio = { version = "1.32.0", features = ["time", "macros", "rt"] }
 toml = "0.8.2"
 url = { version = "2.4.1", features = ["serde"] }
+
+[profile.release]
+strip = true
