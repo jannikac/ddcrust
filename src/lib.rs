@@ -97,8 +97,7 @@ impl Cache {
         self.cache.get(&k)
     }
     pub fn new() -> Result<Cache> {
-        let mut cache_path = env::current_dir()?;
-        cache_path.push("cache.bin");
+        let cache_path = PathBuf::from_iter([env::current_dir()?, PathBuf::from("cache.bin")]);
         if cache_path.exists() {
             debug!(
                 "Cache file found ({})",
