@@ -1,5 +1,5 @@
 # Interval for checking the wan ip address in seconds
-interval = 10
+interval = 300
 # Webservice that returns the wan_ip of the requesting client in plaintext format
 ip_webservice = "https://checkip.amazonaws.com"
 
@@ -8,7 +8,7 @@ ip_webservice = "https://checkip.amazonaws.com"
 # [[services]]
 
 # [services.dyndns2]
-# server = "dyndns.example.com"
+# server = "updatedyndns.your-registrar.com"
 # identifier = "example.com"
 # password = "supersecurepassword"
 # login = "myaccount"
