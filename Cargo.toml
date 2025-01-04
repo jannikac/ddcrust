@@ -15,7 +15,7 @@ local-ip-address = "0.6.3"
 log = "0.4.20"
 reqwest = "0.11.22"
 serde = { version = "1.0.188", features = ["derive"] }
-tokio = { version = "1.32.0", features = ["time", "macros", "rt"] }
+tokio = { version = "1.32.0", features = ["time", "macros", "rt", "full"] }
 toml = "0.8.2"
 url = { version = "2.4.1", features = ["serde"] }
 

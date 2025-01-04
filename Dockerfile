@@ -1,4 +1,4 @@
-FROM rust:1.73 as build
+FROM rust:1.83 AS build
 
 # create a new empty shell project
 RUN USER=root cargo new --bin ddcrust
@@ -34,4 +34,4 @@ RUN addgroup --gid 1001 --system ddcrust && \
 USER ddcrust
 
 # set the startup command to run your binary
-CMD ["./ddcrust"]
+ENTRYPOINT ["/app/ddcrust/ddcrust"]
